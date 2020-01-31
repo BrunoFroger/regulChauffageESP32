@@ -31,9 +31,19 @@ void regulationInit(void){
 //          augmenteChauffage
 //
 //=========================================
-void augmenteChauffage(void){
-    Serial.println("augmenteChauffage");
-    variationChauffage++;
+void augmenteChauffage(double diffTemp){
+    //Serial.println("augmenteChauffage");
+    double delta;
+    if (diffTemp > 10){
+        delta = 5;
+    } else if (diffTemp > 5){
+        delta = 2.5;
+    } else {
+        delta = 1;
+    }
+    Serial.print("augmenteChauffage de ");
+    Serial.println(delta);
+    variationChauffage += delta;
     if (variationChauffage > 100.0){
         variationChauffage = 100.0;
     }
@@ -45,9 +55,18 @@ void augmenteChauffage(void){
 //          reduireChauffage
 //
 //=========================================
-void reduireChauffage(void){
-    Serial.println("reduireChauffage");
-    variationChauffage--;
+void reduireChauffage(double diffTemp){
+    double delta;
+    if (diffTemp > 10){
+        delta = 5;
+    } else if (diffTemp > 5){
+        delta = 2.5;
+    } else {
+        delta = 1;
+    }
+    Serial.print("augmenteChauffage de ");
+    Serial.println(delta);
+    variationChauffage -= delta;
     if (variationChauffage < 0.0){
         variationChauffage = 0.0;
     }
@@ -63,8 +82,10 @@ void reduireChauffage(void){
 void regulationLoop(void){
     if( millis() - previousMillisRegulation >= intervalCalculRegulation) {
         previousMillisRegulation = millis();   
-        Serial.println("Calcul regulation");
+        //Serial.println("Calcul regulation");
         if (chauffageAllume){
+            // on calcule la difference de temperature entre exterieur et interieur
+            double diffTemp = temperatureMesuree - consigneChauffage;
             // le chauffage est allumé, on calcule la régulation
             if (temperatureExterieure >= temperatureMesuree){
                 // la temperature exterieure est superieure a la temperature interieur on eteint tout
@@ -76,7 +97,7 @@ void regulationLoop(void){
                     if (!interrupteurPompe){
                         interrupteurPompe=true;
                     }
-                    augmenteChauffage();
+                    augmenteChauffage(diffTemp);
                 } else {
                     if (temperatureMesuree >= (consigneChauffage + precisionTemperature)){
                         // la temperature interieure est superieure a la consigne on diminue le chauffage
@@ -85,7 +106,7 @@ void regulationLoop(void){
                                 interrupteurPompe = false;
                             }
                         } else {
-                            reduireChauffage();
+                            reduireChauffage(diffTemp);
                         }
                     } else {
                         // la temperature est proche de la consigne ; on ne fait rien

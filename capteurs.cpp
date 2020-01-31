@@ -39,7 +39,7 @@ void initCapteurs(void){
 void mesureCapteurs(void){
     if( millis() - previousMillisCapteurs >= intervalMesure) {
         previousMillisCapteurs = millis();   
-        Serial.println("Mesure capteurs");
+        //Serial.println("Mesure capteurs");
         if (simulation){
             temperatureExterieure = getSimulatedValue(SIMUL_TEMP_EXTERIEURE);
             temperatureMesuree = getSimulatedValue(SIMUL_TEMP_INTERIEURE);

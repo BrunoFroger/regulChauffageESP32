@@ -20,23 +20,27 @@ void initWifi(void){    // search for availables Wifi Networks
     if (nbSsid != -1){
         Serial.print(nbSsid);
         Serial.println(" wifi networks found");
-        for (int ssidNetwork = 0 ; ssidNetwork < nbSsid ; ssidNetwork++){
-            Serial.print("  check network : ");
-            Serial.print(WiFi.SSID(ssidNetwork));
-            if (WiFi.SSID(ssidNetwork) == "NETGEAR17"){
-                strcpy(wifiSsid,"NETGEAR17");
-                strcpy(wifiPassword, "largesea818");
-                Serial.println(" => OK");
-                break;
+        strcpy(wifiSsid,"");
+        while (strcmp(wifiSsid,"") == 0){        
+            for (int ssidNetwork = 0 ; ssidNetwork < nbSsid ; ssidNetwork++){
+                Serial.print("  check network : ");
+                Serial.print(WiFi.SSID(ssidNetwork));
+                if (WiFi.SSID(ssidNetwork) == "NETGEAR17"){
+                    strcpy(wifiSsid,"NETGEAR17");
+                    strcpy(wifiPassword, "largesea818");
+                    Serial.println(" => OK");
+                    break;
+                }
+                if (WiFi.SSID(ssidNetwork) == "Livebox-006d"){
+                    strcpy(wifiSsid,"Livebox-006d");
+                    strcpy(wifiPassword, "A23F1F7979C9DD3C5916324123");
+                    Serial.println(" => OK");
+                    break;
+                }
+                Serial.println(" => NOK");
             }
-            if (WiFi.SSID(ssidNetwork) == "Livebox-006d"){
-                strcpy(wifiSsid,"Livebox-006d");
-                strcpy(wifiPassword, "A23F1F7979C9DD3C5916324123");
-                Serial.println(" => OK");
-                break;
-            }
-            Serial.println(" => NOK");
         }
+
         // Connect to WiFi network
         Serial.println();    //On suit toute l'action sur le moniteur
         Serial.print("Connecting to ");
