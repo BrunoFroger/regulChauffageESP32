@@ -56,13 +56,12 @@ void loop() {
     // Check if a client has connected
     wifiClient = wifiServer.available();
     if (wifiClient) {
-        Serial.println("a client is connected");
-        delay(10);
         // a client is connected
         //check if the client sends some data
+        delay(10); // wait a lot of time to receive datas
         if (wifiClient.available()) {
             // a request is available treat int
-            //   Read the first line of the request
+            // Read the first line of the request
             String request = wifiClient.readStringUntil('\r');
             Serial.print( "String recue du Client:   "); 
             Serial.println(request);
