@@ -58,7 +58,7 @@ void loop() {
     if (wifiClient) {
         // a client is connected
         //check if the client sends some data
-        delay(10); // wait a lot of time to receive datas
+        delay(50); // wait a lot of time to receive datas
         if (wifiClient.available()) {
             // a request is available treat int
             // Read the first line of the request

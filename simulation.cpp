@@ -6,8 +6,8 @@
 #include "regulation.hpp"
 
 void initSimulation(void){
-    temperatureMesuree = 20.0;
-    temperatureExterieure = 15.0;
+    temperatureMesuree = 10.0;
+    temperatureExterieure = 8.0;
     tempSortieChaudiere = 45.0;
     tempRetourChaudiere = 30.0;
 }
@@ -24,9 +24,9 @@ double getSimuTempInt(){
     Serial.print(variationChauffage);
     Serial.print(" / 100) + (");
     Serial.print(diffTemp);
-    Serial.print(" / 10) = ");
+    Serial.print(" / 20) = ");
     temperatureMesuree += (variationChauffage / 100.0);
-    temperatureMesuree += (diffTemp / 10.0);
+    temperatureMesuree += (diffTemp / 20.0);
     Serial.print(temperatureMesuree);
     Serial.println();
     return temperatureMesuree;
