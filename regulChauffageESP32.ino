@@ -9,6 +9,8 @@
 #include "variables.hpp"
 #include "capteurs.hpp"
 #include "regulation.hpp"
+#include "saveToFlash.hpp"
+#include "afficheur.hpp"
 
 int loopDelay = 1000;
 int cpt=0;
@@ -20,6 +22,7 @@ int cpt=0;
 //
 //=========================================
 void setup() {
+    delay(2000);
     // initialize serial communication
     Serial.begin(115200);
     int timeoutInitSerial = 100;
@@ -29,6 +32,7 @@ void setup() {
         break;
         delay(10);
     }
+    delay(5000);
     if (timeoutInitSerial != 0)
     {
         Serial.println("Serial initialized");
@@ -38,10 +42,22 @@ void setup() {
         exit(0);
     }
 
+    Serial.println("debut de setup");
     initWifi();
+    Serial.println("Init Wifi OK");
 
     initVariables();
+    Serial.println("Init variables OK");
     regulationInit();
+    Serial.println("Init regulation OK");
+    initSaveToFlash();
+    Serial.println("Init eeprom OK");
+    initAfficheur();
+    afficheTexte(0,0,"Bienvenue");
+    Serial.println("Init afficheur OK");
+    delay(1000);
+
+    Serial.println("Fin de setup");
 }
 
 //=========================================
@@ -66,6 +82,9 @@ void loop() {
             Serial.print( "String recue du Client:   "); 
             Serial.println(request);
             analyseRequest(request);
+            if (savetoFlashNeeded){
+                saveDatasToFlash();
+            }
         }
     }
     delay (1);

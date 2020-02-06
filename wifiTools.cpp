@@ -12,10 +12,10 @@ extern WiFiClient wifiClient;
 
 //=========================================
 //
-//          initWifi
+//          scanNetworks
 //
 //=========================================
-void initWifi(void){    // search for availables Wifi Networks
+void scanNetworks(void){    // search for availables Wifi Networks
     int nbSsid = WiFi.scanNetworks();
     if (nbSsid != -1){
         Serial.print(nbSsid);
@@ -39,37 +39,50 @@ void initWifi(void){    // search for availables Wifi Networks
                 }
                 Serial.println(" => NOK");
             }
-        }
-
-        // Connect to WiFi network
-        Serial.println();    //On suit toute l'action sur le moniteur
-        Serial.print("Connecting to ");
-        Serial.println(wifiSsid);
-        WiFi.begin(wifiSsid, wifiPassword);
-        int cpt=0;
-        while (WiFi.status() != WL_CONNECTED) {  //Attente de la connexion
-            delay(500);
-            Serial.print(".");   //Typiquement 5 à 10 points avant la connexion
-            if (cpt++ >= 5){
-                Serial.println();
-                cpt=0;
-                WiFi.begin(wifiSsid, wifiPassword);
+            delay(2000);
+            if (strcmp(wifiSsid,"") == 0){
+                Serial.println("No Wifi network found ==> rescan ......");
+                nbSsid = WiFi.scanNetworks();
             }
         }
-        Serial.println("");
-        Serial.println("WiFi connected");
-
-        // Start the server
-        wifiServer.begin();
-        wifiServer.println("Server started");
-
-        // Print the IP address
-        Serial.print("Use this URL to connect: ");
-        Serial.print("http://");
-        Serial.print(WiFi.localIP());
-        Serial.println("/");  //Utiliser cette URL sous Firefox de preference à Chrome
-
     }
+}
+
+
+//=========================================
+//
+//          initWifi
+//
+//=========================================
+void initWifi(void){    // init wifi connection
+
+    scanNetworks();
+    // Connect to WiFi network
+    Serial.print("Connecting to ");
+    Serial.println(wifiSsid);
+    WiFi.begin(wifiSsid, wifiPassword);
+    int cpt=0;
+    while (WiFi.status() != WL_CONNECTED) {  //Attente de la connexion
+        delay(500);
+        Serial.print(".");   //Typiquement 5 à 10 points avant la connexion
+        if (cpt++ >= 5){
+            Serial.println();
+            cpt=0;
+            WiFi.begin(wifiSsid, wifiPassword);
+        }
+    }
+    Serial.println("");
+    Serial.println("WiFi connected");
+
+    // Start the server
+    wifiServer.begin();
+    wifiServer.println("Server started");
+
+    // Print the IP address
+    Serial.print("Use this URL to connect: ");
+    Serial.print("http://");
+    Serial.print(WiFi.localIP());
+    Serial.println("/");  //Utiliser cette URL sous Firefox de preference à Chrome
 }
 
 //=========================================
