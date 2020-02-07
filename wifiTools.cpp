@@ -7,6 +7,7 @@
 #include "capteurs.hpp"
 #include "regulation.hpp"
 #include "simulation.hpp"
+#include "afficheur.hpp"
 
 extern WiFiClient wifiClient;
 
@@ -188,13 +189,13 @@ void displayConfigScreen(void){
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>Consigne de chauffage</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(consigneChauffage);
+    wifiClient.println(convertValue(consigneChauffage,2));
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>precision de régulation</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(precisionTemperature);
+    wifiClient.println(convertValue(precisionTemperature,2));
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
@@ -242,25 +243,25 @@ void displayCapteursScreen(void){
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>Température mesurée</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(temperatureMesuree);
+    wifiClient.println(convertValue(temperatureMesuree,2));
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>Température extérieure</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(temperatureExterieure);
+    wifiClient.println(convertValue(temperatureExterieure,2));
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>Temp sortie chaudière</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(tempSortieChaudiere);
+    wifiClient.println(convertValue(tempSortieChaudiere,2));
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>Temp retour chaudière</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(tempRetourChaudiere);
+    wifiClient.println(convertValue(tempRetourChaudiere,2));
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("</table>");
@@ -295,14 +296,14 @@ void displayReglagesScreen(void){
     wifiClient.println("        <th>Valeur</th>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
-    wifiClient.println("        <td>consigne</td>");
+    wifiClient.println("        <td>consigne * 100</td>");
     wifiClient.println("        <td>");
     wifiClient.println("            <input");
     wifiClient.println("                type=\"number\" ");
-    wifiClient.println("                placeholder=\"0.1\" ");
-    wifiClient.println("                step=\"0.01\" ");
-    wifiClient.println("                min=\"10.0\" ");
-    wifiClient.println("                max=\"30.0\" ");
+    //wifiClient.println("                placeholder=\"0.1\" ");
+    //wifiClient.println("                step=\"0.01\" ");
+    //wifiClient.println("                min=\"10.0\" ");
+    //wifiClient.println("                max=\"30.0\" ");
     wifiClient.println("                name=\"consigne\" ");
     wifiClient.println("                value=");
     wifiClient.println(                     consigneChauffage);
@@ -310,14 +311,14 @@ void displayReglagesScreen(void){
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
-    wifiClient.println("        <td>précision température</td>");
+    wifiClient.println("        <td>précision température * 100</td>");
     wifiClient.println("        <td>");
     wifiClient.println("            <input");
     wifiClient.println("                type=\"number\" ");
-    wifiClient.println("                placeholder=\"0.01\" ");
-    wifiClient.println("                step=\"0.01\" ");
-    wifiClient.println("                min=\"0.01\" ");
-    wifiClient.println("                max=\"1.0\" ");
+    //wifiClient.println("                placeholder=\"0.01\" ");
+    //wifiClient.println("                step=\"0.01\" ");
+    //wifiClient.println("                min=\"0.01\" ");
+    //wifiClient.println("                max=\"1.0\" ");
     wifiClient.println("                name=\"precTemp\" ");
     wifiClient.println("                value=");
     wifiClient.println(                     precisionTemperature);
@@ -329,13 +330,28 @@ void displayReglagesScreen(void){
     wifiClient.println("        <td>");
     wifiClient.println("            <input");
     wifiClient.println("                type=\"number\" ");
-    wifiClient.println("                placeholder=\"0.1\" ");
-    wifiClient.println("                step=\"0.01\" ");
-    wifiClient.println("                min=\"1000\" ");
-    wifiClient.println("                max=\"50000\" ");
+    //wifiClient.println("                placeholder=\"0.1\" ");
+    //wifiClient.println("                step=\"0.01\" ");
+    //wifiClient.println("                min=\"1000\" ");
+    //wifiClient.println("                max=\"50000\" ");
     wifiClient.println("                name=\"intMesure\" ");
     wifiClient.println("                value=");
     wifiClient.println(                     intervalMesure);
+    wifiClient.println("            />");
+    wifiClient.println("        </td>");
+    wifiClient.println("    </tr>");
+    wifiClient.println("    <tr>");
+    wifiClient.println("        <td>intervale de regulation (ms)</td>");
+    wifiClient.println("        <td>");
+    wifiClient.println("            <input");
+    wifiClient.println("                type=\"number\" ");
+    //wifiClient.println("                placeholder=\"0.1\" ");
+    //wifiClient.println("                step=\"0.01\" ");
+    //wifiClient.println("                min=\"1000\" ");
+    //wifiClient.println("                max=\"50000\" ");
+    wifiClient.println("                name=\"intRegul\" ");
+    wifiClient.println("                value=");
+    wifiClient.println(                     intervalCalculRegulation);
     wifiClient.println("            />");
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
@@ -387,26 +403,26 @@ void displayVisualScreen(void){
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>consigne</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(consigneChauffage);
+    wifiClient.println(convertValue(consigneChauffage,2));
     wifiClient.println("        </td>");
-    wifiClient.println("        <td><a href=\"/updateSimulation?tempCons=0.1\">+</a></td>");
-    wifiClient.println("        <td><a href=\"/updateSimulation?tempCons=-0.1\">+</a></td>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?tempCons=10\">+</a></td>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?tempCons=-10\">-</a></td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
     wifiClient.println("        <td>temperature interieure</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(temperatureMesuree);
+    wifiClient.println(convertValue(temperatureMesuree,2));
     wifiClient.println("        </td>");
-    wifiClient.println("        <td><a href=\"/updateSimulation?tempInt=0.1\">+</a></td>");
-    wifiClient.println("        <td><a href=\"/updateSimulation?tempInt=-0.1\">+</a></td>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?tempInt=10\">+</a></td>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?tempInt=-10\">-</a></td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    </tr>");
     wifiClient.println("        <td>temperature exterieure</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(temperatureExterieure);
+    wifiClient.println(convertValue(temperatureExterieure,2));
     wifiClient.println("        </td>");
-    wifiClient.println("        <td><a href=\"/updateSimulation?tempExt=0.1\">+</a></td>");
-    wifiClient.println("        <td><a href=\"/updateSimulation?tempExt=-0.1\">+</a></td>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?tempExt=10\">+</a></td>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?tempExt=-10\">-</a></td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    </tr>");
     wifiClient.println("        <td>pompe</td>");
@@ -419,7 +435,7 @@ void displayVisualScreen(void){
     wifiClient.println("    </tr>");
     wifiClient.println("        <td>commande de chauffage</td>");
     wifiClient.println("        <td>");
-    wifiClient.println(variationChauffage);
+    wifiClient.println(convertValue(variationChauffage,0));
     wifiClient.println("        </td>");
     wifiClient.println("        <td></td>");
     wifiClient.println("        <td></td>");
@@ -460,6 +476,7 @@ void updateVariable(String requete){
     String name = requete.substring(0,index);
     String value = requete.substring(index+1,requete.length());
 
+
     
     Serial.print("nom de la variable : <");
     Serial.print(name);
@@ -469,17 +486,19 @@ void updateVariable(String requete){
     
 
     if (name.equals("consigne")){
-        consigneChauffage = value.toDouble();
+        consigneChauffage = value.toInt();
     } else if (name.equals("precTemp")){
-        precisionTemperature = value.toDouble();
+        precisionTemperature = value.toInt();
     } else if (name.equals("intMesure")){
-        intervalMesure = value.toDouble();
+        intervalMesure = value.toInt();
+    } else if (name.equals("intRegul")){
+        intervalCalculRegulation = value.toInt();
     } else if (name.equals("tempInt")){
-        temperatureMesuree += value.toDouble();
+        temperatureMesuree += value.toInt();
     } else if (name.equals("tempExt")){
-        temperatureExterieure += value.toDouble();
+        temperatureExterieure += value.toInt();
     } else if (name.equals("tempCons")){
-        consigneChauffage += value.toDouble();
+        consigneChauffage += value.toInt();
     } else if (name.equals("chauffage")){
         chauffageAllume = !chauffageAllume;
     } else if (name.equals("simulation")){

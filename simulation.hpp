@@ -10,7 +10,7 @@
 #define SIMUL_TEMP_SORTIE_CHAUDIERE   3
 #define SIMUL_TEMP_RETOUR_CHAUDIERE   4
 
-extern double getSimulatedValue(int type);
+extern long getSimulatedValue(int type);
 extern void initSimulation(void);
 
 #endif

@@ -7,11 +7,11 @@
 
 
 
-extern double temperatureMesuree;
-extern double temperatureExterieure;
-extern double tempSortieChaudiere;
-extern double tempRetourChaudiere;
-extern double intervalMesure;
+extern long temperatureMesuree;
+extern long temperatureExterieure;
+extern long tempSortieChaudiere;
+extern long tempRetourChaudiere;
+extern long intervalMesure;
 
 extern void initCapteurs(void);
 extern void mesureCapteurs(void);

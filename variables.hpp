@@ -20,8 +20,8 @@ extern WiFiServer wifiServer;//Ecouter le port 80
 
 
 // chauffage
-extern double consigneChauffage;
-extern double precisionTemperature;
+extern long consigneChauffage;
+extern long precisionTemperature;
 
 // fonctions
 extern void initVariables(void);

@@ -13,14 +13,14 @@
 #define PIN_TEMP_OUT_CHAUD  A5
 #define PIN_TEMP_BACK_CHAUD A3
 
-double temperatureMesuree;
-double temperatureExterieure;
-double tempSortieChaudiere=0.0;
-double tempRetourChaudiere=0.0;
+long temperatureMesuree;
+long temperatureExterieure;
+long tempSortieChaudiere=0L;
+long tempRetourChaudiere=0L;
 
 
 unsigned long previousMillisCapteurs=0 ;
-double intervalMesure = 1000L;
+long intervalMesure = 1000L;
 
 //=========================================
 //

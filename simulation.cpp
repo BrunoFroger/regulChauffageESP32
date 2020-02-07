@@ -6,18 +6,18 @@
 #include "regulation.hpp"
 
 void initSimulation(void){
-    temperatureMesuree = 10.0;
-    temperatureExterieure = 8.0;
-    tempSortieChaudiere = 45.0;
-    tempRetourChaudiere = 30.0;
+    temperatureMesuree = 1000L;
+    temperatureExterieure = 800L;
+    tempSortieChaudiere = 4500L;
+    tempRetourChaudiere = 3000L;
 }
 
-double getSimuTempExt(){
+long getSimuTempExt(){
     return temperatureExterieure;
 }
 
-double getSimuTempInt(){   
-    double diffTemp = temperatureExterieure - temperatureMesuree;
+long getSimuTempInt(){   
+    long diffTemp = temperatureExterieure - temperatureMesuree;
     Serial.print("temperature interieure : ");
     Serial.print(temperatureMesuree);
     Serial.print(" + (");
@@ -32,17 +32,17 @@ double getSimuTempInt(){
     return temperatureMesuree;
 }
 
-double getSimuTempSortieChaud(){
+long getSimuTempSortieChaud(){
     return tempSortieChaudiere;
 }
 
 
-double getSimuTempRetourChaud(){
+long getSimuTempRetourChaud(){
     return tempRetourChaudiere;
 }
 
 
-double getSimulatedValue(int type){
+long getSimulatedValue(int type){
     switch(type){
         case SIMUL_TEMP_INTERIEURE:
             return getSimuTempInt();
@@ -57,6 +57,6 @@ double getSimulatedValue(int type){
             return getSimuTempRetourChaud();
             break;
         default:
-            return 0.0;
+            return 0L;
     }
 }

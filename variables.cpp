@@ -26,8 +26,8 @@ WiFiServer wifiServer(80);//Ecouter le port 80
 //          parametres de chauffage
 //
 //=========================================
-double consigneChauffage;
-double precisionTemperature;
+long consigneChauffage;
+long precisionTemperature;
 
 //=========================================
 //
@@ -36,7 +36,7 @@ double precisionTemperature;
 //=========================================
 void initVariables(void){
     ipAdress = WiFi.localIP().toString();
-    consigneChauffage = 20;
-    precisionTemperature=0.05;
+    consigneChauffage = 2000L;
+    precisionTemperature=5L;
 }
 
