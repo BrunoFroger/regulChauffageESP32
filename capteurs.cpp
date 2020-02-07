@@ -41,10 +41,15 @@ void mesureCapteurs(void){
         previousMillisCapteurs = millis();   
         //Serial.println("Mesure capteurs");
         if (simulation){
+            Serial.println("=======================================");
+            Serial.println("|   Valeurs calculées par simulation  |");
+            Serial.println("=======================================");
             temperatureExterieure = getSimulatedValue(SIMUL_TEMP_EXTERIEURE);
             temperatureMesuree = getSimulatedValue(SIMUL_TEMP_INTERIEURE);
             tempSortieChaudiere = getSimulatedValue(SIMUL_TEMP_SORTIE_CHAUDIERE);
             tempRetourChaudiere = getSimulatedValue(SIMUL_TEMP_RETOUR_CHAUDIERE);
+            Serial.println("=======================================");
+            Serial.flush();
         } else {
             temperatureExterieure = analogRead(PIN_TEMP_EXT);
             temperatureMesuree = analogRead(PIN_TEMP_INT);

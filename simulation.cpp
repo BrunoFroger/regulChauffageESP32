@@ -4,6 +4,9 @@
 #include "simulation.hpp"
 #include "capteurs.hpp"
 #include "regulation.hpp"
+#include "variables.hpp"
+
+long tempEauChaudiere = 6000L;       // la temperature de l'eau dans la chaudière est de 60°
 
 void initSimulation(void){
     temperatureMesuree = 1000L;
@@ -13,11 +16,16 @@ void initSimulation(void){
 }
 
 long getSimuTempExt(){
+    Serial.print("| Simulation => ");
+    Serial.print("temperature exterieure : ");
+    Serial.print(temperatureExterieure);
+    Serial.println();
     return temperatureExterieure;
 }
 
 long getSimuTempInt(){   
     long diffTemp = temperatureExterieure - temperatureMesuree;
+    Serial.print("| Simulation => ");
     Serial.print("temperature interieure : ");
     Serial.print(temperatureMesuree);
     Serial.print(" + (");
@@ -33,11 +41,28 @@ long getSimuTempInt(){
 }
 
 long getSimuTempSortieChaud(){
+    tempSortieChaudiere = tempEauChaudiere * variationChauffage / 10000;
+    if (tempSortieChaudiere < temperatureMesuree){
+        tempSortieChaudiere = temperatureMesuree;
+    }
+    Serial.print("| Simulation => ");
+    Serial.print("temperature sortie chaudière : ");
+    Serial.print(tempSortieChaudiere);
+    Serial.println();
     return tempSortieChaudiere;
 }
 
 
 long getSimuTempRetourChaud(){
+    long diffTemp = consigneChauffage - temperatureMesuree;
+    tempRetourChaudiere = tempSortieChaudiere - (diffTemp / 2);
+    if (tempRetourChaudiere > tempSortieChaudiere * 0.9){
+        tempRetourChaudiere = tempSortieChaudiere * 0.9;
+    }
+    Serial.print("| Simulation => ");
+    Serial.print("temperature retour chaudière : ");
+    Serial.print(tempRetourChaudiere);
+    Serial.println();
     return tempRetourChaudiere;
 }
 

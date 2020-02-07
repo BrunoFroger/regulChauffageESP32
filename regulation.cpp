@@ -26,58 +26,6 @@ void regulationInit(void){
 
 }
 
-/*
-//=========================================
-//
-//          augmenteChauffage
-//
-//=========================================
-void augmenteChauffage(long diffTemp){
-    //Serial.println("augmenteChauffage");
-    long delta;
-    if (diffTemp > 1000L){
-        delta = 500L;
-    } else if (diffTemp > 500L){
-        delta = 250L;
-    } else if (diffTemp > 200L) {
-        delta = 100L;
-    } else {
-        delta = 050L;
-    }
-    Serial.print("augmenteChauffage de ");
-    Serial.println(delta);
-    variationChauffage += delta;
-    if (variationChauffage > 10000L){
-        variationChauffage = 10000L;
-    }
-}
-
-
-//=========================================
-//
-//          reduireChauffage
-//
-//=========================================
-void reduireChauffage(long diffTemp){
-    long delta;
-    if (diffTemp > 1000L){
-        delta = 500L;
-    } else if (diffTemp > 500L){
-        delta = 250L;
-    } else if (diffTemp > 200L) {
-        delta = 100L;
-    } else {
-        delta = 50L;
-    }
-    Serial.print("augmenteChauffage de ");
-    Serial.println(delta);
-    variationChauffage -= delta;
-    if (variationChauffage < 0L){
-        variationChauffage = 0L;
-    }
-}
-*/
-
 //=========================================
 //
 //          updateChauffage
@@ -106,8 +54,8 @@ void updateChauffage(long diffTemp){
             delta = -50L;
         } 
     }
-    Serial.print("updateChauffage de ");
-    Serial.println(delta);
+    //Serial.print("updateChauffage de ");
+    //Serial.println(delta);
     variationChauffage += delta;
     if (variationChauffage > 10000L){
         variationChauffage = 10000L;
@@ -116,8 +64,6 @@ void updateChauffage(long diffTemp){
         variationChauffage = 0L;
     }
 }
-
-
 
 //=========================================
 //
