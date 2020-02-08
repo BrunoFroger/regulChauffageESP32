@@ -9,6 +9,8 @@
 
 
 boolean simulation=false;
+boolean simulationTempExt=false;
+boolean simulationTempMes=false;
 
 //=========================================
 //

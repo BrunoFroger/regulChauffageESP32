@@ -119,7 +119,7 @@ void displayHeader(void){
     wifiClient.println("</head>");
     wifiClient.println("<body>");
     //wifiClient.println("=============================================================================================");
-    wifiClient.println("<div><br><br>");
+    wifiClient.println("<div>");
 }
 
 
@@ -147,7 +147,7 @@ void displayFooter(void){
 void displayHomeMessage(void){
     //Serial.println("displayHomeMessage"); 
     wifiClient.println("<h2>Gestion Chauffage avec ESP 32</h2>");
-    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<br>");      //Saut de lignes
     wifiClient.println("Application de gestion de chauffage avec un ESP 32");
     wifiClient.println("<br><br>");      //Saut de lignes
     wifiClient.println("Vous allez pouvoir acceder aux differentes fonctionnalites de gestion du chauffage en cliquant sur un des liens suivants : ");
@@ -160,10 +160,11 @@ void displayHomeMessage(void){
     wifiClient.println("<br><br>");      //Saut de lignes
     wifiClient.println("<a href= \" /visualisation \" >visualisation</a>");
     wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<a href= \" /simulationConfig \" >config simulation</a>");
+    wifiClient.println("<br><br>");      //Saut de lignes
     //wifiClient.println("<a href= \" /dfgsdgfqdfsg \" >test page erreur</a>");
     //wifiClient.println("<br><br>");      //Saut de lignes
 }
-
 
 //=========================================
 //
@@ -173,7 +174,7 @@ void displayHomeMessage(void){
 void displayConfigScreen(void){
     //Serial.println("displayConfigScreen"); 
     wifiClient.println("<h2>Configuration</h2>");
-    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<br>");      //Saut de lignes
     wifiClient.println("écran de configuration des paramètres de l'application :");
     wifiClient.println("<br><br>");      //Saut de lignes
     wifiClient.println("<table style=\"border:2px\">");
@@ -226,13 +227,51 @@ void displayConfigScreen(void){
 
 //=========================================
 //
+//          displaySimulationConfiguration
+//
+//=========================================
+void displaySimulationConfiguration(void){
+    //Serial.println("displayConfigScreen"); 
+    wifiClient.println("<h2>Configuration de la simulation</h2>");
+    wifiClient.println("<br>");      //Saut de lignes
+    wifiClient.println("écran de configuration des paramètres de simulation l'application :");
+    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<table style=\"border:2px\">");
+    wifiClient.println("    <tr>");
+    wifiClient.println("        <td><a href=\"/updateSimulation?simulation=switch\">simulation</a></td>");
+    wifiClient.println("        <td>");
+    wifiClient.println(simulation);
+    wifiClient.println("        </td>");
+    wifiClient.println("    </tr>");
+    wifiClient.println("    <tr>");
+    wifiClient.println("        <td><a href= \" /switchSimulationTempMesuree \" >temperatureMesuree on/off</a></td>");
+    wifiClient.println("        <td>");
+    wifiClient.println(simulationTempMes);
+    wifiClient.println("        </td>");
+    wifiClient.println("    </tr>");
+    wifiClient.println("    <tr>");
+    wifiClient.println("        <td><a href= \" /switchSimulationTempExterieure \" >temperatureExterieure on/off</a></td>");
+    wifiClient.println("        <td>");
+    wifiClient.println(simulationTempExt);
+    wifiClient.println("        </td>");
+    wifiClient.println("    </tr>");
+    wifiClient.println("</table>");
+    wifiClient.println("</table>");
+    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<a href= \" / \" >Retour</a>");
+    wifiClient.println("<br><br>");      //Saut de lignes
+}
+
+
+//=========================================
+//
 //          displayCapteursScreen
 //
 //=========================================
 void displayCapteursScreen(void){
     //Serial.println("displayCapteursScreen"); 
     wifiClient.println("<h2>Capteurs</h2>");
-    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<br>");      //Saut de lignes
     wifiClient.println("Voici les valeurs mesurèes sur les différents capteurs du système");
     wifiClient.println("<br><br>");      //Saut de lignes
     wifiClient.println("<table>");
@@ -286,7 +325,7 @@ void displayReglagesScreen(void){
     //Serial.println(consigneChauffage);
     //Serial.println();
     wifiClient.println("<h2>Réglages</h2>");
-    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<br>");      //Saut de lignes
     wifiClient.println("Cette page vous permet de modifier les paramètres de chauffage");
     wifiClient.println("<br><br>");      //Saut de lignes
     wifiClient.println("<form method=\"get\" action=\"updateReglages\"  >");
@@ -373,7 +412,7 @@ void displayVisualScreen(void){
     //Serial.println("displayVisualScreen"); 
     //Serial.println();
     wifiClient.println("<h2>Visualisation</h2>");
-    wifiClient.println("<br><br>");      //Saut de lignes
+    wifiClient.println("<br>");      //Saut de lignes
     wifiClient.println("Cette page montre l'évolution des parametres de chauffage");
     wifiClient.println("<br><br>");      //Saut de lignes
     wifiClient.println("<form method=\"get\" action=\"updateReglages\"  >");
@@ -493,16 +532,13 @@ void updateVariable(String requete){
     int index = requete.indexOf('=');
     String name = requete.substring(0,index);
     String value = requete.substring(index+1,requete.length());
-
-
     
-    Serial.print("nom de la variable : <");
-    Serial.print(name);
-    Serial.print("> ; valeur : <");
-    Serial.print(value);
-    Serial.println(">");
+    //Serial.print("nom de la variable : <");
+    //Serial.print(name);
+    //Serial.print("> ; valeur : <");
+    //Serial.print(value);
+    //Serial.println(">");
     
-
     if (name.equals("consigne")){
         consigneChauffage = value.toInt();
     } else if (name.equals("precTemp")){
@@ -570,7 +606,7 @@ void switchSimulation(void){
 
 //=========================================
 //
-//          switchSimulation
+//          switchChauffage
 //
 //=========================================
 void switchChauffage(void){
@@ -578,6 +614,34 @@ void switchChauffage(void){
         chauffageAllume =false;
     } else {
         chauffageAllume = true;
+    }
+}
+
+
+//=========================================
+//
+//          switchSimulationTempMesuree
+//
+//=========================================
+void switchSimulationTempMesuree(void){
+    if (simulationTempMes){
+        simulationTempMes =false;
+    } else {
+        simulationTempMes = true;
+    }
+}
+
+
+//=========================================
+//
+//          switchSimulationTempMesuree
+//
+//=========================================
+void switchSimulationTempExterieure(void){
+    if (simulationTempExt){
+        simulationTempExt =false;
+    } else {
+        simulationTempExt = true;
     }
 }
 
@@ -618,6 +682,14 @@ void analyseRequest(String request){
         updateReglages(request);
         request = "GET /reglages HTTP/1.1";
         displayReglagesScreen();
+    } else if (request.startsWith("GET /simulationConfig")){
+        displaySimulationConfiguration();
+    } else if (request.startsWith("GET /switchSimulationTempMesuree")){
+        switchSimulationTempMesuree();
+        displaySimulationConfiguration();
+    } else if (request.startsWith("GET /switchSimulationTempExterieure")){
+        switchSimulationTempExterieure();
+        displaySimulationConfiguration();
     }else {
         displayErrorScreen();
     }
