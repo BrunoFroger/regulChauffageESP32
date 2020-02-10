@@ -115,6 +115,5 @@ void regulationLoop(void){
                 variationChauffage = 0L;
             }
         }
-        displayRegulation();
     }
 }

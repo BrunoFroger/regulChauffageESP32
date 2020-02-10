@@ -11,7 +11,7 @@
 // globales
 extern boolean simulation;
 extern boolean simulationTempExt;
-extern boolean simulationTempMes;
+extern boolean simulationConsChauff;
 
 // connexion
 extern String ipAdress;

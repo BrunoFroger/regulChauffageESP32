@@ -40,8 +40,8 @@ void scanNetworks(void){    // search for availables Wifi Networks
                 }
                 Serial.println(" => NOK");
             }
-            delay(2000);
             if (strcmp(wifiSsid,"") == 0){
+                delay(2000);
                 Serial.println("No Wifi network found ==> rescan ......");
                 nbSsid = WiFi.scanNetworks();
             }
@@ -244,9 +244,9 @@ void displaySimulationConfiguration(void){
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
-    wifiClient.println("        <td><a href= \" /switchSimulationTempMesuree \" >temperatureMesuree on/off</a></td>");
+    wifiClient.println("        <td><a href= \" /switchConsigneChauffage \" >consigneChauffage on/off</a></td>");
     wifiClient.println("        <td>");
-    wifiClient.println(simulationTempMes);
+    wifiClient.println(consigneChauffage);
     wifiClient.println("        </td>");
     wifiClient.println("    </tr>");
     wifiClient.println("    <tr>");
@@ -623,11 +623,11 @@ void switchChauffage(void){
 //          switchSimulationTempMesuree
 //
 //=========================================
-void switchSimulationTempMesuree(void){
-    if (simulationTempMes){
-        simulationTempMes =false;
+void switchConsigneChauffage(void){
+    if (simulationConsChauff){
+        simulationConsChauff =false;
     } else {
-        simulationTempMes = true;
+        simulationConsChauff = true;
     }
 }
 
@@ -638,10 +638,10 @@ void switchSimulationTempMesuree(void){
 //
 //=========================================
 void switchSimulationTempExterieure(void){
-    if (simulationTempExt){
-        simulationTempExt =false;
+    if (simulationConsChauff){
+        simulationConsChauff =false;
     } else {
-        simulationTempExt = true;
+        simulationConsChauff = true;
     }
 }
 
@@ -685,7 +685,7 @@ void analyseRequest(String request){
     } else if (request.startsWith("GET /simulationConfig")){
         displaySimulationConfiguration();
     } else if (request.startsWith("GET /switchSimulationTempMesuree")){
-        switchSimulationTempMesuree();
+        switchConsigneChauffage();
         displaySimulationConfiguration();
     } else if (request.startsWith("GET /switchSimulationTempExterieure")){
         switchSimulationTempExterieure();

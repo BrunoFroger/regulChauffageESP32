@@ -11,6 +11,8 @@
 #include "regulation.hpp"
 #include "saveToFlash.hpp"
 #include "afficheur.hpp"
+#include "clavier.hpp"
+#include "boutton.hpp"
 
 int loopDelay = 1000;
 int cpt=0;
@@ -32,7 +34,7 @@ void setup() {
         break;
         delay(10);
     }
-    delay(5000);
+    delay(4000);
     if (timeoutInitSerial != 0)
     {
         Serial.println("Serial initialized");
@@ -68,6 +70,12 @@ void setup() {
 void loop() {
     mesureCapteurs();
     regulationLoop();
+    ecranLoop();
+    readBouton();
+
+    if (Serial.available() > 0) {
+        lireClavier();
+    }
 
     // Check if a client has connected
     wifiClient = wifiServer.available();
