@@ -38,6 +38,12 @@ void scanNetworks(void){    // search for availables Wifi Networks
                     Serial.println(" => OK");
                     break;
                 }
+                if (WiFi.SSID(ssidNetwork) == "AndroidAPBruno"){
+                    strcpy(wifiSsid,"AndroidAPBruno");
+                    strcpy(wifiPassword, "0296072588");
+                    Serial.println(" => OK");
+                    break;
+                }
                 Serial.println(" => NOK");
             }
             if (strcmp(wifiSsid,"") == 0){

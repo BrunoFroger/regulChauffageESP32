@@ -78,7 +78,8 @@ void regulationLoop(void){
             // on calcule la difference de temperature entre exterieur et interieur
             long diffTemp = consigneChauffage - temperatureMesuree;
             // le chauffage est allumé, on calcule la régulation
-            if (temperatureExterieure >= temperatureMesuree){
+            if (diffTemp < 0 && temperatureExterieure >= temperatureMesuree){
+                // la temperature interieure est superieure a la consgne et 
                 // la temperature exterieure est superieure a la temperature interieur on eteint tout
                 interrupteurPompe = false;
                 variationChauffage = 0L;

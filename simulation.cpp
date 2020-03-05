@@ -8,6 +8,11 @@
 
 long tempEauChaudiere = 6000L;       // la temperature de l'eau dans la chaudière est de 60°
 
+//=========================================
+//
+//          initSimulation
+//
+//=========================================
 void initSimulation(void){
     temperatureMesuree = 1000L;
     temperatureExterieure = 800L;
@@ -15,6 +20,11 @@ void initSimulation(void){
     tempRetourChaudiere = 3000L;
 }
 
+//=========================================
+//
+//          getSimuTempExt
+//
+//=========================================
 long getSimuTempExt(){
     Serial.print("| Simulation => ");
     Serial.print("temperature exterieure : ");
@@ -23,6 +33,11 @@ long getSimuTempExt(){
     return temperatureExterieure;
 }
 
+//=========================================
+//
+//          getSimuTempInt
+//
+//=========================================
 long getSimuTempInt(){   
     long diffTemp = temperatureExterieure - temperatureMesuree;
     Serial.print("| Simulation => ");
@@ -40,6 +55,11 @@ long getSimuTempInt(){
     return temperatureMesuree;
 }
 
+//=========================================
+//
+//          getSimuTempSortieChaud
+//
+//=========================================
 long getSimuTempSortieChaud(){
     tempSortieChaudiere = tempEauChaudiere * variationChauffage / 10000;
     if (tempSortieChaudiere < temperatureMesuree){
@@ -53,6 +73,11 @@ long getSimuTempSortieChaud(){
 }
 
 
+//=========================================
+//
+//          getSimuTempRetourChaud
+//
+//=========================================
 long getSimuTempRetourChaud(){
     long diffTemp = consigneChauffage - temperatureMesuree;
     tempRetourChaudiere = tempSortieChaudiere - (diffTemp / 2);
@@ -67,6 +92,11 @@ long getSimuTempRetourChaud(){
 }
 
 
+//=========================================
+//
+//          getSimulatedValue
+//
+//=========================================
 long getSimulatedValue(int type){
     switch(type){
         case SIMUL_TEMP_INTERIEURE:

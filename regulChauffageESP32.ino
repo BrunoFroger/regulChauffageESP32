@@ -55,7 +55,7 @@ void setup() {
     initSaveToFlash();
     Serial.println("Init eeprom OK");
     initAfficheur();
-    afficheTexte(0,0,"Bienvenue");
+    afficheTexte(lcd0,0,0,"Bienvenue");
     Serial.println("Init afficheur OK");
     delay(1000);
 
