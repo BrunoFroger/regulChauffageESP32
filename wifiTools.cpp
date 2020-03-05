@@ -114,7 +114,7 @@ void displayHeader(void){
     wifiClient.println("    }");
     wifiClient.println("</style>");
     wifiClient.println("<html>");
-    wifiClient.println("<head><title>Test ESP 32</title>");   //Pour l'onglet du navigateur
+    wifiClient.println("<head><title>Regulation chauffage ESP 32</title>");   //Pour l'onglet du navigateur
     wifiClient.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no\" />"); 
     //wifiClient.println("<meta http-equiv=\"refresh\" content=\"5\" />");
     wifiClient.println("<meta charset=\"utf-8\" />"); 
